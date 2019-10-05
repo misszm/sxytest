@@ -1,2 +1,3 @@
 # sxytest
-学习celery, numpy, tf等数据分析
+python3.5
+学习celery, numpy, tensorflow及数据分析
