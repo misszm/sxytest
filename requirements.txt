@@ -1,0 +1,15 @@
+# python==3.5
+amqp==1.4.9
+anyjson==0.3.3
+billiard==3.3.0.23
+celery==3.1.26.post2
+celery-with-redis==3.0
+certifi==2018.8.24
+importlib-metadata==0.23
+kombu==3.0.37
+more-itertools==7.2.0
+pytz==2019.2
+redis==2.10.6
+vine==1.3.0
+zipp==0.6.0
+
