@@ -1,0 +1,4 @@
+mysql -u root -p;
+use mysql;
+select user,plugin from user where user='root';  # 查看root用户密码验证方式
+alter user 'root'@'localhost' identified with mysql_native_password by '123456'; # 修改MySQL root用户密码验证方式
