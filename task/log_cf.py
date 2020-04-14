@@ -5,7 +5,7 @@ from logging.handlers import TimedRotatingFileHandler
 logger = logging.getLogger("xy")
 sh = logging.StreamHandler()
 sh.setLevel(logging.DEBUG)
-fh = TimedRotatingFileHandler("../log/cron.log", "MIDNIGHT", 1, 60, encoding='utf-8')
+fh = TimedRotatingFileHandler("./log/cron.log", "MIDNIGHT", 1, 60, encoding='utf-8')
 # fh.setLevel(logging.WARNING)
 fh.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(name)s %(asctime)s %(pathname)s '

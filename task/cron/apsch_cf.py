@@ -7,14 +7,16 @@ from apscheduler.schedulers.background import BlockingScheduler
 # from django_apscheduler.jobstores import DjangoJobStore
 
 # from cron.models import TaskLog
+from django_apscheduler.jobstores import DjangoJobStore
+
 from log_cf import logger
 
-# scheduler = BackgroundScheduler({
-scheduler = BlockingScheduler({
-    'apscheduler.jobstores.default': {
-        'type': 'sqlalchemy',
-        'url': 'mysql+pymysql://root:Mysqlsxy@zm520@192.168.179.133/crontask?charset=utf8'
-    },
+scheduler = BackgroundScheduler({
+# scheduler = BlockingScheduler({
+    # 'apscheduler.jobstores.default': {
+    #     'type': 'sqlalchemy',
+    #     'url': 'mysql+pymysql://root:Mysqlsxy@zm520@192.168.179.133/crontask?charset=utf8'
+    # },
     'apscheduler.executors.default': {
         'class': 'apscheduler.executors.pool:ThreadPoolExecutor',
         'max_workers': '20'
@@ -27,7 +29,7 @@ scheduler = BlockingScheduler({
     'apscheduler.job_defaults.max_instances': '1',  # 同一个任务同一时间最多执行的次数
     'apscheduler.job_defaults.misfire_grace_time': 1,  # 如果不写默认1s 只会执行预定在过去一秒内的任务
 })
-# scheduler.add_jobstore(DjangoJobStore(), "default")
+scheduler.add_jobstore(DjangoJobStore(), "default")
 
 
 def my_listener(event):
@@ -38,7 +40,7 @@ def my_listener(event):
 
 
 scheduler.add_listener(my_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
-# scheduler.start()
+scheduler.start()
 
 
 def create_week_report():

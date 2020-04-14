@@ -34,6 +34,7 @@ class TaskView(View):
         month = params.get("month")  # 1-12
         day = params.get("day")  # 1-31
         day_of_week = params.get("day_of_week")  # 0-6
+        day_of_week = day_of_week if day_of_week == "日" else int(day_of_week) - 1
         hour = params.get("hour")
         minute = params.get("minute")
         second = params.get("second")
@@ -49,13 +50,13 @@ class TaskView(View):
         cron_data["day_of_week"] = day_of_week
         cron_data["hour"] = hour
         cron_data["minute"] = minute
-        cron_data["second"] = second
+        cron_data["j"] = second
         a = scheduler.get_job(name)
         scheduler.remove_all_jobs()
         # scheduler.add_job(my_job, "cron", start_time=start_time, end_time=end_time,
         #                   month=month, day=day, day_of_week=day_of_week, hour=hour,
         #                   minute=minute, second=second)
-        # sch_job = scheduler.add_job(my_job, "cron", args=(job_type, cmd, name), **cron_data)
+        sch_job = scheduler.add_job(my_job, "cron", args=(job_type, cmd, name), **cron_data)
         # print(sch_job)
         # cron_data["job_type"] = job_type
         # cron_data["cmd"] = cmd
