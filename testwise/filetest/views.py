@@ -22,9 +22,7 @@ scheduler.add_jobstore(DjangoJobStore(), "default")
 scheduler.add_listener(my_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
 scheduler.start()
 def file_test(request):
-    # return HttpResponseRedirect("http://localhost:8000/" + settings.STATIC_URL + "LICENSE")
-    return HttpResponseRedirect(redirect_to="http://localhost:8000/" + "file/LICENSE")
-
+    return HttpResponse("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq123123")
 
 class Task(View):
 
