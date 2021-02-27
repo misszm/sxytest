@@ -71,7 +71,7 @@ def my_listener(event):
     else:
         logger.info(event.job_id + " success")
 scheduler.add_listener(my_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
-scheduler.start()
+# scheduler.start()  # 开启才会运行
 if __name__ == '__main__':
     job_id = 'job_interval'
     # scheduler.remove_job(job_id)

@@ -20,7 +20,7 @@ from django_apscheduler.jobstores import DjangoJobStore
 scheduler = BackgroundScheduler()
 scheduler.add_jobstore(DjangoJobStore(), "default")
 scheduler.add_listener(my_listener, EVENT_JOB_EXECUTED | EVENT_JOB_ERROR)
-scheduler.start()
+# scheduler.start()  # 开启才会运行
 def file_test(request):
     return HttpResponse("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq123123")
 
