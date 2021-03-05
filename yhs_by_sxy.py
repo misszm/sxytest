@@ -55,7 +55,7 @@ def petal(m, t):
 def main():
     t = turtle.Turtle()
     w = turtle.Screen()
-    # t.hideturtle()
+    t.hideturtle()
     t.getscreen().tracer(1, 0)
     w.screensize(bg="wheat")
     t.left(90)
