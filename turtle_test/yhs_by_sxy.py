@@ -1,7 +1,7 @@
-
 import time
 import turtle
 import random
+from PIL import Image, EpsImagePlugin
 
 
 def tree(branchLen, t):
@@ -55,32 +55,82 @@ def petal(m, t):
 def main():
     t = turtle.Turtle()
     w = turtle.Screen()
-    t.hideturtle()
+    # t.hideturtle()
     t.getscreen().tracer(1, 0)
+    w.setup(1200, 700)  # 设置窗口大小, 屏幕大小, 可以最大化
+    # w.screensize(bg="wheat", canvwidth=800, canvheight=700)  # 设置画布大小
     w.screensize(bg="wheat")
+
+    zm(t)
+
+    t.goto(0, 0)
     t.left(90)
     t.up()
     t.backward(150)
     t.down()
     t.color("sienna")
 
-    tree(60, t)
-    petal(200, t)
-    write(t)
+    # tree(60, t)
+    # petal(100, t)
+    write_name(t)
+    insert_pic(w, t)
+    # save_jpg(w)
 
     w.exitonclick()
 
 
-def write(t):
-    def t_write(x, y, v):
+def zm(t):
+    t.color("black")
+    t.pensize(5)
+    t.up()
+    t.goto(-500, 200)
+    t.down()
+    t.forward(400)
+    t.right(130)
+    t.forward(600)
+    t.left(130)
+    t.forward(400)
+    t.up()
+    pass
+
+
+def insert_pic(w, t):
+    # import os
+    # current_dir = os.path.dirname(os.path.abspath(__file__))
+    # bg_path = os.path.join(current_dir, "bg.PNG")
+    # w.bgpic(bg_path)
+    # pic_path = os.path.join(current_dir, "add.gif")
+    pic_path = "phonenumber_size1111.gif"
+    w.addshape(pic_path)  # 新增形状
+    t.shape(pic_path)  # 替换小乌龟
+    t.goto(0, 0)
+
+
+def save_jpg(w):
+    w.getcanvas().postscript(file='./result.eps')
+    EpsImagePlugin.gs_windows_binary = r'E:\gs9.53.3\bin\gswin64c.exe'
+    pic = Image.open("./result.eps")
+    pic.save("./result.jpg")
+
+
+def write_name(t):
+    def t_write(x, y, v, font=("仿宋", 30, "normal")):
         t.goto(x, y)
-        t.write(v, font=("仿宋", 24, "normal"))
+        t.write(v, font=font)
     t.up()
     t.color("black")
-    for x, y, v in ((280, 280, "群"), (280, 250, "英"), (310, 280, "荟"), (310, 250, "萃"),
-                    (200, -280, "专业绘图"), (170, -310, "13027790723")):
+    for x, y, v in ((280, 280, "X"), (280, 247, "Y"), (300, 280, "喜"), (300, 245, "阳")):
         t_write(x, y, v)
+    t_write(*(-300, 280, ".py", ("Arial", 16, "normal")))
+    t.goto(349, 285)
+    t.down()
+    # t.up()
+    t.circle(41)
+    t.up()
 
 
 if __name__ == '__main__':
     main()
+
+
+# 改变乌龟图标, 保存, 在加载, 在改变乌龟图标, 在保存
