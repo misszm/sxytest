@@ -1,6 +1,7 @@
 import time
 import turtle
 import random
+
 from PIL import Image, EpsImagePlugin
 
 
@@ -58,13 +59,16 @@ def main():
     # t.hideturtle()
     t.getscreen().tracer(1, 0)
     w.setup(1200, 700)  # 设置窗口大小, 屏幕大小, 可以最大化
+    # w.setworldcoordinates(0, 0, 1200, 700)
     # w.screensize(bg="wheat", canvwidth=800, canvheight=700)  # 设置画布大小
-    w.screensize(bg="wheat")
+    # w.screensize(bg="wheat")
+    w.screensize(bg="#ffdac8")  # 粉
 
     zm(t)
+    zm(t, False)
 
     t.goto(0, 0)
-    t.left(90)
+    t.left(180)
     t.up()
     t.backward(150)
     t.down()
@@ -79,31 +83,52 @@ def main():
     w.exitonclick()
 
 
-def zm(t):
-    t.color("black")
-    t.pensize(5)
+def zm(t, flag=True):
+    t.color("#ffdac8")
+    # t.color("#ffe6d9")
+    t.pensize(20)
     t.up()
-    t.goto(-500, 200)
-    t.down()
-    t.forward(400)
-    t.right(130)
-    t.forward(600)
-    t.left(130)
-    t.forward(400)
+    if flag:
+        t.goto(-500, 200)
+        t.down()
+        t.forward(400)
+        t.right(130)
+        t.forward(600)
+        t.left(130)
+        t.forward(400)
+    else:
+        t.goto(100, -260)
+        t.down()
+        t.left(90)
+        t.forward(462)
+        t.right(155)
+        t.forward(515)
+        t.left(130)
+        t.forward(515)
+        t.right(155)
+        t.forward(462)
     t.up()
-    pass
+    t.pensize(1)
 
 
-def insert_pic(w, t):
-    # import os
-    # current_dir = os.path.dirname(os.path.abspath(__file__))
-    # bg_path = os.path.join(current_dir, "bg.PNG")
-    # w.bgpic(bg_path)
-    # pic_path = os.path.join(current_dir, "add.gif")
-    pic_path = "phonenumber_size1111.gif"
+def insert_pic(w, t, pic_path="phonenumber_size1111.gif"):
     w.addshape(pic_path)  # 新增形状
     t.shape(pic_path)  # 替换小乌龟
+    ts = 0.5
     t.goto(0, 0)
+    st_id = t.stamp()
+    time.sleep(ts)
+    t.goto(0, 200)
+    t.stamp()
+    time.sleep(ts)
+    t.clearstamp(st_id)
+    time.sleep(ts)
+    t.goto(0, -200)
+    time.sleep(ts)
+    t.clearstamps(1)
+    t.hideturtle()
+    time.sleep(ts)
+    w.screensize(bg="#a3e2c5")  # 艾青
 
 
 def save_jpg(w):
@@ -114,23 +139,24 @@ def save_jpg(w):
 
 
 def write_name(t):
+    t.pensize(3)
+
     def t_write(x, y, v, font=("仿宋", 30, "normal")):
         t.goto(x, y)
         t.write(v, font=font)
+
     t.up()
-    t.color("black")
-    for x, y, v in ((280, 280, "X"), (280, 247, "Y"), (300, 280, "喜"), (300, 245, "阳")):
+    t.color("red")
+    for x, y, v in ((-300, 280, "X"), (-300, 247, "Y"), (-280, 280, "喜"), (-280, 245, "阳")):
         t_write(x, y, v)
-    t_write(*(-300, 280, ".py", ("Arial", 16, "normal")))
     t.goto(349, 285)
     t.down()
-    # t.up()
-    t.circle(41)
+    t.circle(42)
     t.up()
+    t.color("black")
+    t_write(*(300, -280, ".py", ("Arial", 16, "normal")))
+    t.pensize(1)
 
 
 if __name__ == '__main__':
     main()
-
-
-# 改变乌龟图标, 保存, 在加载, 在改变乌龟图标, 在保存
