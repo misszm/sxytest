@@ -37,6 +37,20 @@ def tree(branchLen, t):
 
 
 def petal(m, t):
+    # for i in range(m):
+    #     a = 200 - 400 * random.random()
+    #     b = 10 - 20 * random.random()
+    #     t.up()
+    #     t.forward(b)
+    #     t.left(90)
+    #     t.forward(a)
+    #     t.down()
+    #     t.color("lightcoral")
+    #     t.circle(1)
+    #     t.up()
+    #     t.backward(a)
+    #     t.right(90)
+    #     t.backward(b)
     for i in range(m):
         a = 200 - 400 * random.random()
         b = 10 - 20 * random.random()
@@ -52,12 +66,11 @@ def petal(m, t):
         t.right(90)
         t.backward(b)
 
-
 def main():
     t = turtle.Turtle()
     w = turtle.Screen()
     # t.hideturtle()
-    t.getscreen().tracer(1, 0)
+    t.getscreen().tracer(10, 0)
     w.setup(1200, 700)  # 设置窗口大小, 屏幕大小, 可以最大化
     # w.setworldcoordinates(0, 0, 1200, 700)
     # w.screensize(bg="wheat", canvwidth=800, canvheight=700)  # 设置画布大小
@@ -70,12 +83,13 @@ def main():
     t.goto(0, 0)
     t.left(180)
     t.up()
-    t.backward(150)
+    t.backward(200)
     t.down()
     t.color("sienna")
 
-    # tree(60, t)
-    # petal(100, t)
+    # tree(80, t)  # 正好
+    tree(20, t)
+    petal(100, t)
     write_name(t)
     insert_pic(w, t)
     # save_jpg(w)
@@ -112,6 +126,7 @@ def zm(t, flag=True):
 
 
 def insert_pic(w, t, pic_path="phonenumber_size1111.gif"):
+    t.getscreen().tracer(1, 0)
     w.addshape(pic_path)  # 新增形状
     t.shape(pic_path)  # 替换小乌龟
     ts = 0.5
@@ -129,6 +144,9 @@ def insert_pic(w, t, pic_path="phonenumber_size1111.gif"):
     t.hideturtle()
     time.sleep(ts)
     w.screensize(bg="#a3e2c5")  # 艾青
+    t.goto(0, 0)
+    time.sleep(ts)
+    w.screensize(bg="#ffdac8")  # 粉
 
 
 def save_jpg(w):
@@ -138,25 +156,29 @@ def save_jpg(w):
     pic.save("./result.jpg")
 
 
+def t_write(t, x, y, v, font=["仿宋", 30, "normal"]):
+    t.goto(x, y)
+    if v in "XY":
+        font[1] = 34
+    t.write(v, font=font)
+
+
 def write_name(t):
     t.pensize(3)
-
-    def t_write(x, y, v, font=("仿宋", 30, "normal")):
-        t.goto(x, y)
-        t.write(v, font=font)
-
     t.up()
     t.color("red")
-    for x, y, v in ((-300, 280, "X"), (-300, 247, "Y"), (-280, 280, "喜"), (-280, 245, "阳")):
-        t_write(x, y, v)
-    t.goto(349, 285)
+    a, b = -50, 0
+    for x, y, v in ((-280, -210, "喜"), (-280, -245, "阳"), (-300, -210, "X"), (-300, -245, "Y")):
+        t_write(t, x+a, y+b, v)
+    t.goto(-231+a, -205+b)
     t.down()
-    t.circle(42)
+    t.circle(43)
     t.up()
     t.color("black")
-    t_write(*(300, -280, ".py", ("Arial", 16, "normal")))
+    t_write(*(t, 300, -280, ".py", ("Arial", 16, "normal")))
     t.pensize(1)
 
 
 if __name__ == '__main__':
     main()
+
