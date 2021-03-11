@@ -1,8 +1,55 @@
+import math
 import time
 import turtle
 import random
 
 from PIL import Image, EpsImagePlugin
+
+
+def petal_backup(m, t):
+    t.getscreen().tracer(30, 0)
+    for i in range(m):
+        a = 200 - 400 * random.random()
+        b = 10 - 20 * random.random()
+        t.up()
+        t.forward(b)
+        t.left(90)
+        t.forward(a)
+        t.down()
+        t.color("lightcoral")
+        t.circle(1)
+        t.up()
+        t.backward(a)
+        t.right(90)
+        t.backward(b)
+    for i in range(m):
+        radius = random.randint(100, 150)
+        angle = random.random() * 360
+        t.left(angle)
+        t.up()
+        t.forward(radius)
+        t.down()
+        t.dot(2, 'lightcoral')
+        t.home()
+    # aa = 100
+    # for a, b, m in ((150, 200, 250), (100, 150, 60), (5, 98, 20)):
+    #     a += aa
+    #     b += aa
+    #     for i in range(4):
+    #         for i in range(int(m/4)):
+    #             radius = random.randint(a, b)
+    #             angle = random.random() * 360
+    #             t.up()
+    #             t.left(angle)
+    #             t.forward(radius)
+    #             t.down()
+    #             t.color("lightcoral")
+    #             t.circle(1)
+    #             t.up()
+    #             t.home()
+    #             t.left(90)
+    #             t.backward(200)
+    #             t.down()
 
 
 def tree(branchLen, t):
@@ -37,23 +84,12 @@ def tree(branchLen, t):
 
 
 def petal(m, t):
-    # for i in range(m):
-    #     a = 200 - 400 * random.random()
-    #     b = 10 - 20 * random.random()
-    #     t.up()
-    #     t.forward(b)
-    #     t.left(90)
-    #     t.forward(a)
-    #     t.down()
-    #     t.color("lightcoral")
-    #     t.circle(1)
-    #     t.up()
-    #     t.backward(a)
-    #     t.right(90)
-    #     t.backward(b)
+    t.getscreen().tracer(30, 0)
     for i in range(m):
         a = 200 - 400 * random.random()
         b = 10 - 20 * random.random()
+        a = 1.8 * a
+        b = 1.8 * b
         t.up()
         t.forward(b)
         t.left(90)
@@ -66,11 +102,12 @@ def petal(m, t):
         t.right(90)
         t.backward(b)
 
+
 def main():
     t = turtle.Turtle()
     w = turtle.Screen()
-    # t.hideturtle()
-    t.getscreen().tracer(10, 0)
+    t.hideturtle()
+    t.getscreen().tracer(100, 0)
     w.setup(1200, 700)  # 设置窗口大小, 屏幕大小, 可以最大化
     # w.setworldcoordinates(0, 0, 1200, 700)
     # w.screensize(bg="wheat", canvwidth=800, canvheight=700)  # 设置画布大小
@@ -80,6 +117,9 @@ def main():
     zm(t)
     zm(t, False)
 
+    t.color("black")
+    t_write(*(t, 370, -280, ".py", ("Arial", 16, "normal")))
+
     t.goto(0, 0)
     t.left(180)
     t.up()
@@ -87,11 +127,11 @@ def main():
     t.down()
     t.color("sienna")
 
-    # tree(80, t)  # 正好
-    tree(20, t)
-    petal(100, t)
+    # tree(70, t)  # 正好
+    # tree(40, t)
+    petal(200, t)
+    # insert_pic(w, t)
     write_name(t)
-    insert_pic(w, t)
     # save_jpg(w)
 
     w.exitonclick()
@@ -126,17 +166,17 @@ def zm(t, flag=True):
 
 
 def insert_pic(w, t, pic_path="phonenumber_size1111.gif"):
+    t.showturtle()
     t.getscreen().tracer(1, 0)
     w.addshape(pic_path)  # 新增形状
     t.shape(pic_path)  # 替换小乌龟
-    ts = 0.5
     t.goto(0, 0)
     st_id = t.stamp()
     time.sleep(ts)
     t.goto(0, 200)
-    t.stamp()
-    time.sleep(ts)
     t.clearstamp(st_id)
+    time.sleep(ts)
+    t.stamp()
     time.sleep(ts)
     t.goto(0, -200)
     time.sleep(ts)
@@ -164,21 +204,21 @@ def t_write(t, x, y, v, font=["仿宋", 30, "normal"]):
 
 
 def write_name(t):
+    t.getscreen().tracer(1, 0)
     t.pensize(3)
     t.up()
     t.color("red")
-    a, b = -50, 0
+    a, b = -100, 60
     for x, y, v in ((-280, -210, "喜"), (-280, -245, "阳"), (-300, -210, "X"), (-300, -245, "Y")):
-        t_write(t, x+a, y+b, v)
-    t.goto(-231+a, -205+b)
+        t_write(t, x + a, y + b, v)
+        time.sleep(ts-0.15)
+    t.goto(-231 + a, -205 + b)
     t.down()
     t.circle(43)
     t.up()
-    t.color("black")
-    t_write(*(t, 300, -280, ".py", ("Arial", 16, "normal")))
     t.pensize(1)
 
 
 if __name__ == '__main__':
+    ts = 0.5
     main()
-
