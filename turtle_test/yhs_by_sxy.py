@@ -1,4 +1,3 @@
-import math
 import time
 import turtle
 import random
@@ -6,84 +5,87 @@ import random
 from PIL import Image, EpsImagePlugin
 
 
-def petal_backup(m, t):
-    t.getscreen().tracer(30, 0)
-    for i in range(m):
-        a = 200 - 400 * random.random()
-        b = 10 - 20 * random.random()
-        t.up()
-        t.forward(b)
-        t.left(90)
-        t.forward(a)
-        t.down()
-        t.color("lightcoral")
-        t.circle(1)
-        t.up()
-        t.backward(a)
-        t.right(90)
-        t.backward(b)
-    for i in range(m):
-        radius = random.randint(100, 150)
-        angle = random.random() * 360
-        t.left(angle)
-        t.up()
-        t.forward(radius)
-        t.down()
-        t.dot(2, 'lightcoral')
-        t.home()
-    # aa = 100
-    # for a, b, m in ((150, 200, 250), (100, 150, 60), (5, 98, 20)):
-    #     a += aa
-    #     b += aa
-    #     for i in range(4):
-    #         for i in range(int(m/4)):
-    #             radius = random.randint(a, b)
-    #             angle = random.random() * 360
-    #             t.up()
-    #             t.left(angle)
-    #             t.forward(radius)
-    #             t.down()
-    #             t.color("lightcoral")
-    #             t.circle(1)
-    #             t.up()
-    #             t.home()
-    #             t.left(90)
-    #             t.backward(200)
-    #             t.down()
+# def petal_backup(m, t):
+#     t.getscreen().tracer(30, 0)
+#     for i in range(m):
+#         a = 200 - 400 * random.random()
+#         b = 10 - 20 * random.random()
+#
+#         t.up()
+#
+#         t.forward(b)
+#         t.left(90)
+#         t.forward(a)
+#         t.down()
+#         t.color("lightcoral")
+#         t.circle(1)
+#         t.up()
+#         t.backward(a)
+#         t.right(90)
+#         t.backward(b)
+#     for i in range(m):
+#         radius = random.randint(100, 150)
+#         angle = random.random() * 360
+#         t.left(angle)
+#         t.up()
+#         t.forward(radius)
+#         t.down()
+#         t.dot(2, 'lightcoral')
+#         t.home()
+#     # aa = 100
+#     # for a, b, m in ((150, 200, 250), (100, 150, 60), (5, 98, 20)):
+#     #     a += aa
+#     #     b += aa
+#     #     for i in range(4):
+#     #         for i in range(int(m/4)):
+#     #             radius = random.randint(a, b)
+#     #             angle = random.random() * 360
+#     #             t.up()
+#     #             t.left(angle)
+#     #             t.forward(radius)
+#     #             t.down()
+#     #             t.color("lightcoral")
+#     #             t.circle(1)
+#     #             t.up()
+#     #             t.home()
+#     #             t.left(90)
+#     #             t.backward(200)
+#     #             t.down()
 
 
-def tree(branchLen, t):
-    time.sleep(0.005)
-    if branchLen > 3:
-        if 8 <= branchLen <= 12:
+def tree(bl, t):
+    # time.sleep(0.001)
+    if bl > 3:
+        if 8 <= bl <= 12:
             if random.randint(0, 2) == 0:
                 t.color("snow")
             else:
                 t.color("lightcoral")
-            t.pensize(branchLen / 3)
-        elif branchLen < 8:
+            t.pensize(bl / 3)
+        elif bl < 8:
             if random.randint(0, 1) == 0:
                 t.color("snow")
             else:
                 t.color("lightcoral")
-            t.pensize(branchLen / 2)
+            t.pensize(bl / 2)
         else:
             t.color("sienna")
-            t.pensize(branchLen / 10)
-        t.forward(branchLen)
+            t.pensize(bl / 10)
+        t.forward(bl)
         a = 1.5 * random.random()
         t.right(20 * a)
         b = 1.5 * random.random()
-        tree(branchLen - 10 * b, t)
+        tree(bl - 10 * b, t)
         t.left(40 * a)
-        tree(branchLen - 10 * b, t)
+        tree(bl - 10 * b, t)
         t.right(20 * a)
         t.up()
-        t.backward(branchLen)
+        t.backward(bl)
         t.down()
 
 
 def petal(m, t):
+    t.pensize(3)
     t.getscreen().tracer(30, 0)
     for i in range(m):
         a = 200 - 400 * random.random()
@@ -103,6 +105,14 @@ def petal(m, t):
         t.backward(b)
 
 
+def insert_py_pic(w, t, py_pic_path="py_no_qing.gif"):
+    w.addshape(py_pic_path)  # 新增形状
+    t.shape(py_pic_path)  # 替换小乌龟
+    t.goto(380, -270)
+    st_id = t.stamp()
+    return st_id
+
+
 def main():
     t = turtle.Turtle()
     w = turtle.Screen()
@@ -113,12 +123,16 @@ def main():
     # w.screensize(bg="wheat", canvwidth=800, canvheight=700)  # 设置画布大小
     # w.screensize(bg="wheat")
     w.screensize(bg="#ffdac8")  # 粉
+    # w.screensize(bg="#a3e2c5")  # 艾青
+    w.title("whose eyes lock me")
 
     zm(t)
     zm(t, False)
 
-    t.color("black")
-    t_write(*(t, 370, -280, ".py", ("Arial", 16, "normal")))
+    # t.color("black")
+    # t_write(*(t, 370, -280, ".py", ("Arial", 16, "normal")))
+
+    py_no_stamp_id = insert_py_pic(w, t)
 
     t.goto(0, 0)
     t.left(180)
@@ -127,10 +141,10 @@ def main():
     t.down()
     t.color("sienna")
 
-    # tree(70, t)  # 正好
+    tree(70, t)  # 正好
     # tree(40, t)
     petal(200, t)
-    # insert_pic(w, t)
+    insert_phone_pic(w, t, py_no_stamp_id)
     write_name(t)
     # save_jpg(w)
 
@@ -165,27 +179,37 @@ def zm(t, flag=True):
     t.pensize(1)
 
 
-def insert_pic(w, t, pic_path="phonenumber_size1111.gif"):
-    t.showturtle()
+def insert_phone_pic(w, t, stamp_id, pic_path="phonenumber_size1111.gif"):
     t.getscreen().tracer(1, 0)
     w.addshape(pic_path)  # 新增形状
     t.shape(pic_path)  # 替换小乌龟
+    time.sleep(ts)
+    t.showturtle()
+    time.sleep(ts)
+    t.up()
     t.goto(0, 0)
-    st_id = t.stamp()
+    st_id_1 = t.stamp()
+    # t.hideturtle()
     time.sleep(ts)
     t.goto(0, 200)
-    t.clearstamp(st_id)
+    t.showturtle()
     time.sleep(ts)
-    t.stamp()
+    t.clearstamp(st_id_1)
+    t.hideturtle()
     time.sleep(ts)
+    st_id_2 = t.stamp()
     t.goto(0, -200)
+    t.showturtle()
     time.sleep(ts)
-    t.clearstamps(1)
+    t.clearstamp(st_id_2)
     t.hideturtle()
     time.sleep(ts)
     w.screensize(bg="#a3e2c5")  # 艾青
+    py_qing_stamp_id = insert_py_pic(w, t, py_pic_path="py_qing.gif")
+    t.clearstamp(stamp_id)
     t.goto(0, 0)
     time.sleep(ts)
+    t.clearstamp(py_qing_stamp_id)
     w.screensize(bg="#ffdac8")  # 粉
 
 
@@ -196,7 +220,8 @@ def save_jpg(w):
     pic.save("./result.jpg")
 
 
-def t_write(t, x, y, v, font=["仿宋", 30, "normal"]):
+def t_write(t, x, y, v, font=("仿宋", 30, "normal")):
+    font = list(font)
     t.goto(x, y)
     if v in "XY":
         font[1] = 34
@@ -211,7 +236,7 @@ def write_name(t):
     a, b = -100, 60
     for x, y, v in ((-280, -210, "喜"), (-280, -245, "阳"), (-300, -210, "X"), (-300, -245, "Y")):
         t_write(t, x + a, y + b, v)
-        time.sleep(ts-0.15)
+        time.sleep(ts - 0.65)
     t.goto(-231 + a, -205 + b)
     t.down()
     t.circle(43)
@@ -220,5 +245,5 @@ def write_name(t):
 
 
 if __name__ == '__main__':
-    ts = 0.5
+    ts = 1
     main()
