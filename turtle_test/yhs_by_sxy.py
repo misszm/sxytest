@@ -1,7 +1,9 @@
+import os
 import time
 import turtle
 import random
-
+from matplotlib import pyplot as plt
+from matplotlib import image as img
 from PIL import Image, EpsImagePlugin
 
 
@@ -113,7 +115,49 @@ def insert_py_pic(w, t, py_pic_path="py_no_qing.gif"):
     return st_id
 
 
+def gen_phone_num():
+    phone_num_path = "phone_num.gif"
+    if os.path.exists(phone_num_path):
+        return
+    a_list = [
+        [0, 9, 0, 9, 9, 9, 9, 0, 9, 9, 9, 9, 0, 9, 9, 9, 9, 0, 9, 9, 9, 9, 0, 9, 9, 9, 9, 0, 9, 9, 9, 9, 0, 9, 9, 9, 9,
+         0, 9, 9, 9, 9, 0, 9, 9, 9, 9, 0, 9, 9, 9, 9, 0],
+        [0, 9, 5, 1, 1, 2, 9, 3, 9, 1, 0, 9, 2, 1, 1, 2, 9, 3, 1, 1, 1, 9, 5, 1, 1, 1, 9, 5, 9, 1, 1, 9, 5, 9, 1, 0, 9,
+         2, 1, 1, 1, 9, 5, 1, 2, 0, 9, 1, 1, 1, 0, 9, 0],
+        [3, 9, 2, 1, 0, 9, 2, 2, 9, 1, 0, 9, 2, 1, 0, 1, 9, 2, 1, 2, 0, 9, 2, 1, 2, 0, 9, 2, 9, 9, 9, 9, 2, 9, 1, 0, 9,
+         2, 1, 2, 0, 9, 2, 0, 1, 2, 9, 2, 1, 2, 9, 3, 0],
+        [4, 9, 1, 2, 9, 1, 1, 0, 9, 1, 0, 9, 2, 2, 3, 9, 1, 0, 1, 0, 0, 9, 1, 1, 0, 0, 9, 1, 1, 2, 0, 9, 1, 9, 1, 0, 9,
+         2, 1, 0, 0, 9, 1, 3, 2, 9, 1, 0, 2, 9, 1, 0, 0],
+        [5, 9, 3, 2, 0, 9, 1, 0, 9, 1, 0, 9, 2, 0, 9, 2, 1, 0, 3, 0, 0, 9, 3, 3, 0, 0, 9, 3, 3, 0, 0, 9, 3, 9, 1, 0, 9,
+         2, 3, 0, 0, 9, 3, 1, 9, 0, 0, 3, 0, 2, 9, 1, 0],
+        [4, 9, 1, 1, 0, 2, 9, 0, 9, 1, 0, 9, 2, 9, 0, 2, 1, 0, 1, 0, 1, 9, 1, 1, 0, 1, 9, 1, 1, 0, 1, 9, 1, 9, 1, 0, 9,
+         2, 1, 0, 1, 9, 1, 9, 2, 1, 1, 0, 1, 2, 3, 9, 0],
+        [2, 9, 0, 9, 9, 9, 9, 0, 9, 9, 9, 9, 0, 9, 9, 9, 9, 0, 1, 0, 1, 9, 0, 1, 0, 1, 9, 0, 1, 0, 1, 9, 0, 9, 9, 9, 9,
+         2, 1, 0, 1, 9, 0, 9, 9, 9, 9, 1, 9, 9, 9, 9, 0]]
+    phone_num_png_path = "phone_num.png"
+    plt.matshow(a_list, cmap="bone", alpha=0.3, origin="upper")
+    plt.axis("off")
+    plt.savefig(phone_num_png_path, bbox_inches="tight", pad_inches=0,
+                orientation="landscape", transparent=True)  # 横向, 透明
+    # plt.savefig(phone_num_png_path, bbox_inches="tight", pad_inches=0, orientation="landscape")  # 横向, 透明
+    plt.close()
+    plt.figure(figsize=(10, 1.5))
+    pic = img.imread(phone_num_png_path)
+    plt.imshow(pic)
+    plt.axis("off")
+    # plt.savefig(phone_num_png_path, bbox_inches="tight", pad_inches=0, orientation="landscape")  # 横向
+    plt.savefig(phone_num_png_path, bbox_inches="tight", pad_inches=0, orientation="landscape",
+                transparent=True)  # 透明
+    plt.close()
+    os.rename(phone_num_png_path, phone_num_path)
+
+
 def main():
+    gen_phone_num()
+    drawing()
+
+
+def drawing():
     t = turtle.Turtle()
     w = turtle.Screen()
     t.hideturtle()
@@ -179,7 +223,7 @@ def zm(t, flag=True):
     t.pensize(1)
 
 
-def insert_phone_pic(w, t, stamp_id, pic_path="phonenumber_size1111.gif"):
+def insert_phone_pic(w, t, stamp_id, pic_path="phone_num.gif"):
     t.getscreen().tracer(1, 0)
     w.addshape(pic_path)  # 新增形状
     t.shape(pic_path)  # 替换小乌龟
