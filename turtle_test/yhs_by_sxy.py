@@ -237,22 +237,23 @@ def insert_phone_pic(w, t, stamp_id, pic_path="phone_num.gif"):
     time.sleep(ts)
     t.goto(0, 200)
     t.showturtle()
-    time.sleep(ts)
+    ss = 0.5
+    time.sleep(ts-ss)
     t.clearstamp(st_id_1)
     t.hideturtle()
-    time.sleep(ts)
+    time.sleep(ts-ss)
     st_id_2 = t.stamp()
     t.goto(0, -200)
     t.showturtle()
-    time.sleep(ts)
+    time.sleep(ts-ss)
     t.clearstamp(st_id_2)
     t.hideturtle()
-    time.sleep(ts)
+    time.sleep(ts-ss)
     w.screensize(bg="#a3e2c5")  # 艾青
     py_qing_stamp_id = insert_py_pic(w, t, py_pic_path="py_qing.gif")
     t.clearstamp(stamp_id)
     t.goto(0, 0)
-    time.sleep(ts)
+    time.sleep(ts-ss)
     t.clearstamp(py_qing_stamp_id)
     w.screensize(bg="#ffdac8")  # 粉
 
