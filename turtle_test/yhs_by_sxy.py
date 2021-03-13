@@ -185,7 +185,7 @@ def drawing():
     t.down()
     t.color("sienna")
 
-    tree(70, t)  # 正好
+    tree(65, t)  # 正好
     petal(200, t)
     insert_phone_pic(w, t, py_no_stamp_id)
     write_name(t)
