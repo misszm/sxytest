@@ -1,32 +1,43 @@
 import tensorflow as tf
+import numpy as np
 
-# 创建一个常量 op, 产生一个 1x2 矩阵. 这个 op 被作为一个节点
-# 加到默认图中.
-#
-# 构造器的返回值代表该常量 op 的返回值.
-matrix1 = tf.constant([[3., 3.]])
 
-# 创建另外一个常量 op, 产生一个 2x1 矩阵.
-matrix2 = tf.constant([[2.], [2.]])
+def main():
+    x_data = np.random.uniform(1, 20, 100).astype(np.float32)
+    y_data = x_data * x_data + 0.3
 
-# 创建一个矩阵乘法 matmul op , 把 'matrix1' 和 'matrix2' 作为输入.
-# 返回值 'product' 代表矩阵乘法的结果.
-product = tf.matmul(matrix1, matrix2)
-# 启动默认图.
-sess = tf.Session()
+    a = tf.random.uniform([1], -1.0, 1.0)
+    weights = tf.Variable(a)
+    biases = tf.Variable(tf.zeros([1]))
 
-# 调用 sess 的 'run()' 方法来执行矩阵乘法 op, 传入 'product' 作为该方法的参数.
-# 上面提到, 'product' 代表了矩阵乘法 op 的输出, 传入它是向方法表明, 我们希望取回
-# 矩阵乘法 op 的输出.
-#
-# 整个执行过程是自动化的, 会话负责传递 op 所需的全部输入. op 通常是并发执行的.
-#
-# 函数调用 'run(product)' 触发了图中三个 op (两个常量 op 和一个矩阵乘法 op) 的执行.
-#
-# 返回值 'result' 是一个 numpy `ndarray` 对象.
-result = sess.run(product)
-print(result)
-# ==> [[ 12.]]
+    y = weights * x_data + biases
 
-# 任务完成, 关闭会话.
-sess.close()
+    loss = tf.reduce_mean(tf.square(y - y_data))
+    learning_rate = 0.001
+
+    # def gen_learning_rate():
+    #     global_step = tf.Variable(0)
+    #     decay_steps = 10
+    #     decay_rate = 0.9
+    #     learning_tate = tf.compat.v1.train.exponential_decay(learning_tate, global_step, decay_steps, decay_rate,
+    #                                                          staircase=True)
+    #     return learning_tate
+    # learning_rate = gen_learning_rate()
+    # optimizer = tf.compat.v1.train.GradientDescentOptimizer(0.5)
+    optimizer = tf.compat.v1.train.GradientDescentOptimizer(learning_rate)
+    train = optimizer.minimize(loss)
+    init = tf.compat.v1.global_variables_initializer()
+    with tf.compat.v1.Session() as sess:
+        sess.run(init)
+        for i in range(40001):
+            sess.run(train)
+            if i % 20 == 0:
+                print(i, sess.run(weights), sess.run(biases), round(sess.run(loss), 6))
+
+
+if __name__ == '__main__':
+    # main()
+    print(globals())
+    print(locals())
+    print(dir())
+

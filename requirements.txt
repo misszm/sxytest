@@ -115,5 +115,5 @@ Werkzeug==0.16.0
 widgetsnbextension==3.4.1
 zipp==0.6.0
 zope.interface==4.5.0
-
+PIL
 
